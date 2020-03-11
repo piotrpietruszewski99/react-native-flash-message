@@ -159,7 +159,7 @@ export function styleWithInsetMargin(style, wrapperInset, hideStatusBar = false)
 
   return {
     ...viewStyle,
-    marginTop: !!wrapperInset.isIPhoneX || !hideStatusBar ? marginTop + wrapperInset.insetTop : marginTop,
+    //marginTop: !!wrapperInset.isIPhoneX || !hideStatusBar ? marginTop + wrapperInset.insetTop : marginTop,
     marginBottom: marginBottom + wrapperInset.insetBottom,
     marginLeft: marginLeft + wrapperInset.insetLeft,
     marginRight: marginRight + wrapperInset.insetRight,
