@@ -595,7 +595,7 @@ export default class FlashMessage extends Component {
 
 const styles = StyleSheet.create({
   root: {
-    position: "absolute",
+    position: "relative",
     left: 0,
     right: 0,
   },
