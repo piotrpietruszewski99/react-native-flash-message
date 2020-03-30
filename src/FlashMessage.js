@@ -168,6 +168,7 @@ export const renderFlashMessageIcon = (icon = "success", style = {}, customProps
  * For most of uses this component doesn't need to be change for custom versions, cause it's very customizable
  */
 export const DefaultFlash = ({
+  relative,
   message,
   style,
   textStyle,
@@ -192,7 +193,7 @@ export const DefaultFlash = ({
   const hasIcon = !!iconView;
 
   return (
-    <FlashMessageWrapper position={typeof position === "string" ? position : null}>
+    <FlashMessageWrapper relative={relative} position={typeof position === "string" ? position : null}>
       {wrapperInset => (
         <View
           style={styleWithInset(
@@ -259,6 +260,10 @@ DefaultFlash.propTypes = {
  */
 export default class FlashMessage extends Component {
   static defaultProps = {
+    /**
+     * Used in local notifications
+     */
+    relative: true,
     /**
      * Use to handle if the instance can be registed as default/global instance
      */
@@ -329,6 +334,7 @@ export default class FlashMessage extends Component {
     MessageComponent: DefaultFlash,
   };
   static propTypes = {
+    relative: PropTypes.bool,
     canRegisterAsDefault: PropTypes.bool,
     hideOnPress: PropTypes.bool,
     onShow: PropTypes.func,
@@ -553,6 +559,7 @@ export default class FlashMessage extends Component {
     const { message, visibleValue } = this.state;
 
     const style = this.prop(message, "style");
+    const relative = this.prop(message, "relative");
     const textStyle = this.prop(message, "textStyle");
     const titleStyle = this.prop(message, "titleStyle");
     const floating = this.prop(message, "floating");
@@ -566,7 +573,7 @@ export default class FlashMessage extends Component {
     return (
       <Animated.View
         style={[
-          positionStyle(styles.root, position),
+          positionStyle(relative ?styles.rootRelative:styles.root, position),
           position === "center" && !!message && styles.rootCenterEnabled,
           animStyle,
         ]}>
@@ -595,6 +602,11 @@ export default class FlashMessage extends Component {
 
 const styles = StyleSheet.create({
   root: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+  },
+  rootRelative: {
     position: "relative",
     left: 0,
     right: 0,
